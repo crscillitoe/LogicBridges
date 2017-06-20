@@ -232,7 +232,6 @@ def printBoard(filePath , nodes) :
                 solution = solution + "x"
             x = x + 1
         y = y + 1
-    print(solution)
     return solution
 
 #Reads the board from the given file and
@@ -536,13 +535,15 @@ f = open("board.data" , "w")
 count = 0
 for y in range(25) :
     for x in range(25) :
-        if count == walls - 1 :
-            break
-        if xPos[count] == x and yPos[count] == y :
-            f.write(nodes[count])
-            count = count + 1
-        else :
+        try :
+            if xPos[count] == x and yPos[count] == y :
+                f.write(nodes[count])
+                count = count + 1
+            else :
+                f.write('x')
+        except :
             f.write('x')
+            pass
     f.write('\n')
 f.close()
 
