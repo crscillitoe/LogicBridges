@@ -317,22 +317,22 @@ def solveTrivialNode(node , nodes) :
                         formBridge(node , getNode(n , nodes))
                         solveTrivialNode(neighbor , nodes)
                         return 1
-        elif node.v == numNeighborBridges(node , nodes) :
-            for n in validNeighbors :
-                if n != '' :
-                    if getNodeVal(n , nodes) >= 2 and getNodeVal(node.n , nodes) >= 2:
-                        print("Solving trivial node {}...".format(node.n))
-                        neighbor = getNode(n , nodes)
-                        formBridge(node , neighbor)
-                        formBridge(node , neighbor)
-                        solveTrivialNode(neighbor , nodes)
-                        return 1
-                    else :
-                        print("Solving trivial node {}...".format(node.n))
-                        neighbor = getNode(n , nodes)
-                        formBridge(node , neighbor)
-                        solveTrivialNode(neighbor , nodes)
-                        return 1
+#        elif node.v == numNeighborBridges(node , nodes) :
+#            for n in validNeighbors :
+#                if n != '' :
+#                    if getNodeVal(n , nodes) >= 2 and getNodeVal(node.n , nodes) >= 2:
+#                        print("Solving trivial node {}...".format(node.n))
+#                        neighbor = getNode(n , nodes)
+#                        formBridge(node , neighbor)
+#                        formBridge(node , neighbor)
+#                        solveTrivialNode(neighbor , nodes)
+#                        return 1
+#                    else :
+#                        print("Solving trivial node {}...".format(node.n))
+#                        neighbor = getNode(n , nodes)
+#                        formBridge(node , neighbor)
+#                        solveTrivialNode(neighbor , nodes)
+#                        return 1
 
     return 0 
 
@@ -545,8 +545,12 @@ count = 0
 for y in range(25) :
     for x in range(25) :
         if xPos[count] == x and yPos[count] == y :
-            f.write(nodes[count])
-            count = count + 1
+            try : 
+                print(nodes[count])
+                f.write(nodes[count])
+                count = count + 1
+            except :
+                pass
         else :
             f.write('x')
     f.write('\n')
@@ -573,15 +577,3 @@ solution = printBoard(filePath , nodes)
 endTime = time.time()
 
 print("Total time : {}".format(endTime - startTime))
-
-toSendString = "jstimer=0&jstimerShow=00%3A20&stopClock=0&param=" + param['value'] + "&w=25&h=25&ansH=" + solution + "&ansV=" + ansV['value'] + "&ready=+++Done+++"
-print(toSendString)
-
-
-response = http.urlopen('POST' , 'www.puzzle-bridges.com' , toSendString , headers={'Content-Type':'application/x-www-form-urlencoded' , 'Origin':'http://www.puzzle-brides.com' , 'Referer':'http://www.puzzle-bridges.com/?size=11'})
-
-page_source = response.data
-
-#Make it readable
-soup = BeautifulSoup(page_source , 'html.parser')
-print(soup)
